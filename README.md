@@ -18,6 +18,38 @@ A full-stack AI SaaS application for text-to-image generation. Features credit-b
 - Secure JWT authentication
 - Buy more credits via Razorpay (real order creation + payment signature verification)
 
+## How It Works
+
+1. **Sign up / Log in** — creates a JWT-authenticated account with 5 free credits (backend: `imagify-server`).
+2. **Generate an image** — enter a text prompt; the backend forwards it to Pollinations.ai and returns the generated image, deducting 1 credit.
+3. **Run out of credits?** — open "Buy Credits", pick a plan, and pay via Razorpay:
+   - Client asks the backend to create a Razorpay order (`/api/user/pay-razor`)
+   - Razorpay's checkout widget opens using that order
+   - On successful payment, the client sends Razorpay's response to the backend (`/api/user/verify-razor`)
+   - The backend verifies the payment signature with Razorpay before crediting the account — credits are never added on a client-side "success" alone.
+4. **Result gallery** — generated images are shown with a download option.
+
+```
+User → Client (React)  →  Server (Express API)  →  Pollinations.ai   (image generation)
+                       →  Server (Express API)  →  Razorpay          (order + payment verification)
+```
+
+## Project Structure
+
+```
+src/
+├── assets/          # icons, logos, static images
+├── components/      # Navbar, Footer, Login, Header, Steps, Testimonials, GenerateBtn, Description
+├── context/
+│   └── AppContext.jsx   # global state: auth token, user, credits, backendUrl, API calls
+├── pages/
+│   ├── Home.jsx         # landing page + image generation entry point
+│   ├── Result.jsx        # generated image display
+│   └── BuyCredit.jsx     # pricing plans + Razorpay checkout
+├── App.jsx           # routes
+└── main.jsx          # app entry point
+```
+
 ## Getting Started
 
 ```bash
