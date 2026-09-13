@@ -37,9 +37,9 @@ Go to the live app and register with any name/email/password (e.g. `test@example
 **2. Test image generation**
 Enter any prompt on the home page — it calls the free Pollinations.ai API, no payment required.
 
-**3. Test the Razorpay payment flow**
-Click "Buy Credits" → pick a plan → click the Razorpay button. The checkout is in **Test Mode**, so:
-- **Authorize phone:** this is Razorpay's own contact verification (separate from test-mode payments) and sends a real SMS OTP — use your actual number here, or use the "skip"/"continue as guest" option if shown.
-- **Test card:** Card number `4111 1111 1111 1111`, any future expiry date, any 3-digit CVV, any name.
+**3. Test the Razorpay payment flow (The checkout is in **Test Mode**)
+Click on "Credits" → pick a plan → click the Razorpay button -> Select Cards ->  Enter this dummy card no:  5555 5100 0008 1006 -> Use a random CVV and any future date -> 
+- **Authorize phone:** Use a dummy phone no and a dummy otp (like 12345)
+- **Test card:** Use Dummy Card number `4111 1111 1111 1111`, any future expiry date, any 3-digit CVV, any name.
 - **Test UPI:** VPA `success@razorpay` simulates an instant successful payment.
 - No real money is charged in Test Mode. On success, credits are added only after the backend verifies the payment signature with Razorpay.
